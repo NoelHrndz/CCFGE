@@ -30,14 +30,43 @@
             include_once "../general/header.php";
     ?>
     <div class="content-body">
-        <?php
-            session_start();    
-            echo $_SESSION['sesion_ccfge'][1];
-        ?>
-        
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-validation">
+                                <div class="text-center">                                                   
+                                    <form method="POST" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>">
+                                        <input type="file" id="file_import" name="calculo" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                        <input type="hidden" name="formulario">
+                                        <input type="submit"  value="Subir" class="btn btn-warning">
+                                    </form><br>
+                                    <input type="button" id="importar_mensual" value="Importar Clientes Cartera Mensual" class="btn btn-danger">
+                                    <input type="button" id="importar_semana" value="Importar Clientes de la Semana " class="btn btn-success">
+                                </div>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
     </div> 
 </body>        
-                
+        <?php
+            $resultado = null;
+            if(isset($_POST['formulario'])){
+            $name = $_FILES['calculo']['name'];
+            $tmp_name = $_FILES['calculo']['tmp_name'];
+            $error = $_FILES['calculo']['error'];
+            if($error){
+
+            }else{
+                $ruta = "temp_file/importar.xlsx";
+                move_uploaded_file($tmp_name,$ruta);
+            }
+}
+    ?>
     
     
     
@@ -70,6 +99,7 @@
 
 
     <script src="../assets/bootstrap/theme/js/dashboard/dashboard-1.js"></script>
+    <script src="../assets/js/importar.js"></script>
 
 </body>
 

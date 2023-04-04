@@ -35,19 +35,25 @@
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">Opciones</li>
                     <li class="mega-menu-sm">
+                        <a  href="importar_datos.php" aria-expanded="false">
+                            <i class="icon-badge menu-icon"></i><span class="nav-text">Importar Archivos</span>
+                        </a>
+
+                    </li>
+                    <li class="mega-menu-sm">
                         <a  href="clientes_mensual.php" aria-expanded="false">
                             <i class="icon-grid menu-icon"></i><span class="nav-text">Clientes Cartera Mensual</span>
                         </a>
                     </li>
                     <li class="mega-menu-sm">
                         <a  href="clientes_semanal.php" aria-expanded="false">
-                            <i class="icon-badge menu-icon"></i><span class="nav-text">Clientes Semana</span>
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">Clientes Semana</span>
                         </a>
 
                     </li>
                     <li class="mega-menu-sm">
                         <a  href="clientes_dia.php" aria-expanded="false">
-                            <i class="icon-badge menu-icon"></i><span class="nav-text">Clientes del Dia</span>
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">Clientes del Dia</span>
                         </a>
 
                     </li>
