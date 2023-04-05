@@ -9,7 +9,7 @@
     <!-- theme meta -->
     <meta name="theme-name" content="quixlab" />
   
-    <title>Clientes Mes</title>
+    <title>Importar Datos</title>
     <!-- Favicon icon -->
     <link rel="icon" type="../assets/bootstrap/theme/image/png" sizes="16x16" href="images/favicon.png">
     <!-- Pignose Calender -->

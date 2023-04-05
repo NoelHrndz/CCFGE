@@ -6,7 +6,7 @@
 
     if(isset($_POST['importar_mensual'])){
         $mensual = $importar->importar_mes();
-        echo $mensual;
+        print_r(json_encode($mensual));
     }
     if(isset($_POST['importar_semana'])){
 

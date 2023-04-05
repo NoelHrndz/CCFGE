@@ -30,11 +30,38 @@
             include_once "../general/header.php";
     ?>
     <div class="content-body">
-        <?php
-            session_start();    
-            echo $_SESSION['sesion_ccfge'][1];
-        ?>
-        
+    <?php session_start(); ?>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control" type="text" id="filtro_mes" placeholder="Filtrar Clientes"> 
+                                    <input type="hidden" id="cod_trab" value="<?php echo $_SESSION['sesion_ccfge'][1];?>">
+                                </div>
+                                <div class="col">
+                                    
+                                </div>
+                                <div class="col">
+                                    
+                                </div>
+                                <div class="col">
+                                    
+                                </div>
+                                <div class="col">
+                                    
+                                </div>
+                            </div> <br>                       
+                            <div class="table-responsive" id="table_mes">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div> 
 </body>        
                 
@@ -70,6 +97,8 @@
 
 
     <script src="../assets/bootstrap/theme/js/dashboard/dashboard-1.js"></script>
+    <script src="../assets/js/clientes_mensuales.js"></script>
+
 
 </body>
 

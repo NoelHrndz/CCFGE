@@ -9,14 +9,18 @@ $(document).ready(function () {
 
 function importar_mensual(){
     swal({title:"Importar Cartera Mensual",text:"¿Está seguro de importar toda la cartera? * Los datos anteriores seran eliminados *",type:"warning",showCancelButton:!0,confirmButtonColor:"#DD6B55",confirmButtonText:"Si, importar",closeOnConfirm:!1},function(){
-        
         $.ajax({
             type: "POST",
             url: "../controller/importar.php",
             data: {importar_mensual:"S"},
+            dataType: "json",
             success: function (response) {
-                swal({title:response,text:"",timer:2e3,showConfirmButton:!1,type:"success"});
-                alert(response);
+                if(response.respuesta){
+                    swal({title:response.mensaje,text:"",timer:2e3,showConfirmButton:!1,type:"success"});
+                }
+                else{
+                    swal({title:response.mensaje,text:"",showConfirmButton:1,type:"error"});
+                }
             }
         });
     

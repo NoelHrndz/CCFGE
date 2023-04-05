@@ -17,6 +17,7 @@
     $numero_mes = date('n');
     $mes_anterior = $meses[$numero_mes - 2];
     $año = date("Y");
+    $pago_mes_anterior = "PAGOS ".$mes_anterior." ".$año;
 
     $datos_cliente = ["cod_usuario" => "CODIGO EMPLEADO","prestamo" => "PRESTAMO","capital" => "CAPITAL",
     "modo_g_i" => "MODO/ GRUPAL/INDIVIDUAL","cliente" => "CLIENTE","dpi" => "DPI",
@@ -28,29 +29,11 @@
     "dpi_fiador" => "DPI FIADOR","fecha_nacimiento_fiador" => "FECHA NAC FIADOR","municipio_fiador" => "MUNICIPIO FIADOR",
     "direccion_fiador_casa" => "DIRECCION FIADOR CAS","direccion_fiador_trabajo" => "DIRECCION FIADOR TRABAJO",
     "telefono_principal_fiador" => "TEL PRINCIPAL","capital_condedido" => "CAPITAL_CONCEDIDO",
-    "pago_mes_anterior" => "PAGOS ".$mes_anterior." ".$año.""];
-
-    aldea VARCHAR(50) NOT NULL,
-    telefono_principal INT(20) NOT NULL,
-    telefono_2 INT(20) NOT NULL,
-    telefono_ac_deudor INT(20) NOT NULL,
-    telefono_vacunas_deudor INT(20) NOT NULL,
-    fecha_entrega DATE NOT NULL,
-    fecha_vencimiento DATE NOT NULL,
-    nombre_fiador VARCHAR(50) NOT NULL,
-    dpi_fiador INT(20) NOT NULL,
-    fecha_nacimiento_fiador DATE NOT NULL,
-    municipio_fiador VARCHAR(30) NOT NULL,
-    direccion_fiador_casa VARCHAR(50) NOT NULL,
-    direccion_fiador_trabajo VARCHAR(50) NOT NULL,
-    telefono_principal_fiador INT(20) NOT NULL,
-    capital_condedido FLOAT(15) NOT NULL,
-    pago_mes_anterior FLOAT(15) NOT NULL,
-    asignado_semana CHAR(1) NOT NULL,
-    asignado_dia CHAR(1) NOT NULL,
-    gestion_realizada TEXT NULL, 
-    observacion TEXT NULL,
-    telefono_actualizado VARCHAR(20) NULL,
-    probabilidad_de_pago TEXT NULL,*/
+    "pago_mes_anterior" => "PAGOS FEB 2023"];
+    $datos_cliente_unique = ["cod_usuario","prestamo","capital","modo_g_i","cliente","dpi","fecha_nacimiento_deudor",
+    "nombre_grupo","municipio","direccion_domicilio","telefono_principal","telefono_2","telefono_ac_deudor",
+    "telefono_vacunas_deudor","fecha_entrega","fecha_vencimiento","nombre_fiador","dpi_fiador","fecha_nacimiento_fiador",
+    "municipio_fiador","direccion_fiador_casa","direccion_fiador_trabajo","telefono_principal_fiador","capital_condedido",
+    "pago_mes_anterior"];
 ?>
     
