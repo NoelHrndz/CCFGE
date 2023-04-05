@@ -202,7 +202,7 @@ Class Importar{
                 fecha_nacimiento_deudor,nombre_grupo,municipio,direccion_domicilio,aldea,telefono_principal,
                 telefono_2,telefono_ac_deudor,telefono_vacunas_deudor,fecha_entrega,fecha_vencimiento,nombre_fiador,
                 dpi_fiador,fecha_nacimiento_fiador,municipio_fiador,direccion_fiador_casa,direccion_fiador_trabajo,
-                telefono_principal_fiador,capital_condedido,pago_mes_anterior,asignado_semana,asignado_dia) VALUES 
+                telefono_principal_fiador,capital_concedido,pago_mes_anterior,asignado_semana,asignado_dia) VALUES 
                 ('$cod_usu','$pre','$cap','$mod_gi','$cli','$dpi1','$f1','$nom_gru','$mun','$dir_dom','$ald','$t1',
                 '$t2','$t3','$t4','$f2','$f3','$nom_fia','$dpi2','$f4','$mun_fia','$dir_fia_cas',
                 '$dir_fia_tra','$t5','$cap_con','$pag_ant','N','N');"; 
@@ -234,40 +234,64 @@ Class Importar{
     return $mensaje;
     
     }
-
-
-    
-    //for($indiceHoja = 0; $indiceHoja < $totalHojas; $indiceHoja++){
-       /* $hojaActual = $documento->getSheet(0);
+    public function importar_semana(){
+        global $columnas,$datos_cliente,$datos_cliente_unique;
+        $nombreArchivo = "../reportes/temp_file/importar.xlsx";
+        $documento = IOFactory::load($nombreArchivo);
+        $totalHojas = $documento->getSheetCount();
+        $hojaActual = $documento->getSheet(0);
         $numeroFilas = $hojaActual->getHighestDataRow();
-        $letra = $hojaActual->getHighestColumn();
-        if($hojaActual->getCellByColumnAndRow('1',"1")=="Tiempo"){
-            for($indiceFila = 2; $indiceFila <= $numeroFilas; $indiceFila++){
-            $nombre = $hojaActual->getCellByColumnAndRow('3',$indiceFila);
-            $nombreSe = trim($nombre);
-            $apellido = $hojaActual->getCellByColumnAndRow('4',$indiceFila);
-            $nombreCompleto = $nombreSe." ".$apellido;
-            $fechaHora = $hojaActual->getCellByColumnAndRow('1',$indiceFila)->getFormattedValue();
-            $exfh = explode(" ", $fechaHora);
-            $exf = explode("/", $exfh[0]);
-            $sqlfh = $exf[2]."-".$exf[0]."-".$exf[1]." ".$exfh[1].":00";
-            if($nombre!=""){
-                $cadena = $cadena."INSERT INTO temp_detalle(cod_sucursal,empleado,fecha_hora_marcaje) VALUES ('$sucursal','$nombreCompleto','$sqlfh');\n";
+        $letra = $hojaActual->getHighestColumn(); 
+        $pos = array_search($letra, $columnas); 
+        for($i=1;$i<=$pos + 1;$i++){
+            if($hojaActual->getCellByColumnAndRow($i,"1")==$datos_cliente['prestamo'] || $hojaActual->getCellByColumnAndRow($i,"1")==$datos_cliente['prestamo']." "){
+                $pospres = $i;
+                $confpres = true;         
             }
+            if($hojaActual->getCellByColumnAndRow($i,"1")==$datos_cliente['cod_usuario'] || $hojaActual->getCellByColumnAndRow($i,"1")==$datos_cliente['cod_usuario']." "){
+                $posusu = $i;
+                $confusu = true;         
+            }
+        }   
+        session_start();
+        $cad_sql = "";
+        $mensaje = [];
+        if($confpres && $confusu){
+        for($indiceFila = 2; $indiceFila <= $numeroFilas; $indiceFila++){
+            if($hojaActual->getCellByColumnAndRow($posusu,$indiceFila) == $_SESSION['sesion_ccfge'][1]){
+                $prestamo = trim($hojaActual->getCellByColumnAndRow($pospres,$indiceFila));
+                $cad_sql .= "UPDATE clientes SET asignado_semana = 'S' WHERE 
+                cod_usuario='".$_SESSION['sesion_ccfge'][1]."' AND prestamo='$prestamo';"; 
+            }
+            
+            
+            
         }
-        $query = Cconexion::ConexionBD()->prepare($cadena);
-        $query->execute();
-        $query = Cconexion::ConexionBD()->prepare("INSERT INTO detalle SELECT * FROM temp_detalle as t1 
-        WHERE NOT EXISTS(SELECT * FROM detalle as t2 WHERE t1.cod_sucursal=t2.cod_sucursal AND
-        t1.empleado=t2.empleado AND t1.fecha_hora_marcaje=t2.fecha_hora_marcaje)");
-        $query->execute();
-        $query = Cconexion::ConexionBD()->prepare("DELETE FROM temp_detalle WHERE cod_sucursal='$sucursal'");
-        $query->execute();
+        $query_sep = explode(";",$cad_sql);
+        foreach($query_sep as $action){
+            if($action!=""){
+                $query = Cconexion::ConexionBD()->prepare($action);
+                $query->execute();
+            }         
+        }
+        $mensaje = ["respuesta" => true, "mensaje" => "Datos Importados Correctamente"];       
+        
+    }
+    else{
+        $error = "Error al Importar los datos\n";
+        $error .= "No se reconocieron las siguientes columnas:\n";
 
-        echo "Datos Importados";
-        }
-        else{
-            echo "Formato no coincide con sucursal";
-        }*/
+            if(!$confpres){
+                $error .= "-".$datos_cliente["prestamo"]."\n";
+            }
+            if(!$confusu){
+                $error .= "-".$datos_cliente["cod_usuario"]."\n";
+            }
+        
+        $mensaje = ["respuesta" => false, "mensaje" => $error];
+    }
+    return $mensaje;
+    
+    }
     }
 ?>

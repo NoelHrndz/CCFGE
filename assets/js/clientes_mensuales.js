@@ -14,3 +14,15 @@ function listar_clientes(){
         }
     });
 }
+function ver_mens(cod_usuario,prestamo){
+    $('#modalcliente').modal("show");
+    $('#title_cliente').text("Datos Cliente - "+prestamo);
+    $.ajax({
+        type: "POST",
+        url: "../controller/c_mes.php",
+        data: {cod_usuario_modal:cod_usuario,prestamo:prestamo},
+        success: function (response) {
+            $('#datos_modal').html(response);
+        }
+    });
+}

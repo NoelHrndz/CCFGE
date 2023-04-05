@@ -64,7 +64,23 @@
         </div>
     </div> 
 </body>        
-                
+         <div class="modal fade" id="modalcliente" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="title_cliente"></h5>
+                        </div>
+                        <div class="modal-body">
+                            <div id="datos_modal">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        <input type="button" class="btn btn-danger" id="close_modal" data-dismiss="modal" value="Cerrar"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>       
     
     
     
